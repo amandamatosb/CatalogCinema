@@ -17,7 +17,7 @@ public class SavePreferences {
         this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveMovie(Movie movie) {
+    public void saveFavoriteMovie(Movie movie) {
         String json = gson.toJson(movie);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(String.valueOf(movie.getImdbID()), json);

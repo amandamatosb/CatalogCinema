@@ -1,5 +1,6 @@
 package com.example.atividade2pdm.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atividade2pdm.models.Movie;
 import com.example.atividade2pdm.services.MovieService;
+import com.example.atividade2pdm.services.RetrofitClient;
 import com.example.atividade2pdm.utils.MyAdapter;
 import com.example.atividade2pdm.R;
+import com.example.atividade2pdm.utils.SavePreferences;
 import com.example.atividade2pdm.utils.SearchResult;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -35,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText editText;
     private RecyclerView recyclerView;
     private ArrayList<Movie> list;
-    private Retrofit retrofit;
+    private MovieService movieService;
+    private SavePreferences savePreferences;
     private MyAdapter adapter;
-
     private final String API_KEY = "a1b4d424";
 
     @Override
@@ -54,56 +58,58 @@ public class MainActivity extends AppCompatActivity {
         editText =findViewById(R.id.editText);
         recyclerView = findViewById(R.id.recyclerView);
         button = findViewById(R.id.button);
-        list = new ArrayList<Movie>();
-        adapter = new MyAdapter(list);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        this.list = new ArrayList<Movie>();
+        adapter = new MyAdapter(this, list);
+        savePreferences = new SavePreferences(MainActivity.this);
+        movieService = RetrofitClient.getClient().create(MovieService.class);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerView.setAdapter(adapter);
 
-        String url = "http://www.omdbapi.com";
+        adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                String movieID = list.get(position).getImdbID();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                intent.putExtra("movie_id", movieID);
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
-//
-//        adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//            }
-//        });
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Would you like to add this quote to your favorites?");
+                builder.setIcon(R.mipmap.ic_launcher);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        savePreferences.saveFavoriteMovie(list.get(position));
+                        Toast.makeText(MainActivity.this, "Added to favorites!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+                builder.create().show();
+            }
+        });
 
         button.setOnClickListener(v -> {
             String searchItem = editText.getText().toString();
             if (!searchItem.isEmpty()) {
                 retrieveData(searchItem);
             } else {
-                Toast.makeText(MainActivity.this, "Digite um filme!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Enter a title!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        adapter.setOnItemClickListener(position -> {
-            Intent intent = new Intent(this, DetailActivity.class);
-            String movieID = list.get(position).getImdbID();
-
-            intent.putExtra("movie_id", movieID);
-
-            startActivity(intent);
-        });
     }
 
 
     public void retrieveData(String movieTitle) {
-        MovieService movieService = retrofit.create(MovieService.class);
         Call<SearchResult> call = movieService.searchMovies(API_KEY, movieTitle);
         call.enqueue(new Callback<SearchResult>() {
             @Override
@@ -113,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
                     list.addAll(response.body().getSearch());
                     adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(MainActivity.this, "Nenhum filme encontrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No results found", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SearchResult> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro de conexão" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

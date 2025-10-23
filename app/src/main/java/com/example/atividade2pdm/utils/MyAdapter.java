@@ -1,5 +1,6 @@
 package com.example.atividade2pdm.utils;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private ArrayList<Movie> list;
     private OnItemClickListener listener;
+    private Context context;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+        void onItemLongClick(int position);
     }
 
-    public MyAdapter(ArrayList<Movie> list) {
+    public MyAdapter(Context context, ArrayList<Movie> list) {
         this.list = list;
+        this.context = context;
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -79,6 +83,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             listener.onItemClick(position);
                         }
                     }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (listener != null) {
+                        int position = getAbsoluteAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             });
         }
