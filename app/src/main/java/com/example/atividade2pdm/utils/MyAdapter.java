@@ -1,4 +1,4 @@
-package com.example.atividade2pdm;
+package com.example.atividade2pdm.utils;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.atividade2pdm.R;
+import com.example.atividade2pdm.models.Movie;
 
 import java.util.ArrayList;
 

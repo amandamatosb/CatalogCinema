@@ -1,4 +1,4 @@
-package com.example.atividade2pdm;
+package com.example.atividade2pdm.models;
 
 import com.google.gson.annotations.SerializedName;
 

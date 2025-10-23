@@ -1,5 +1,6 @@
-package com.example.atividade2pdm;
+package com.example.atividade2pdm.utils;
 
+import com.example.atividade2pdm.models.Movie;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

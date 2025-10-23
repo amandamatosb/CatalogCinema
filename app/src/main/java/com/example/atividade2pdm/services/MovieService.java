@@ -1,6 +1,7 @@
-package com.example.atividade2pdm;
+package com.example.atividade2pdm.services;
 
-import android.app.appsearch.SearchResults;
+import com.example.atividade2pdm.models.Movie;
+import com.example.atividade2pdm.utils.SearchResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

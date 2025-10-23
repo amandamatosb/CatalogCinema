@@ -1,4 +1,4 @@
-package com.example.atividade2pdm;
+package com.example.atividade2pdm.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.atividade2pdm.models.Movie;
+import com.example.atividade2pdm.services.MovieService;
+import com.example.atividade2pdm.utils.MyAdapter;
+import com.example.atividade2pdm.R;
+import com.example.atividade2pdm.utils.SearchResult;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
