@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
+    private ImageButton buttonFavorite;
     private TextInputEditText editText;
     private RecyclerView recyclerView;
     private ArrayList<Movie> list;
@@ -58,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         editText =findViewById(R.id.editText);
         recyclerView = findViewById(R.id.recyclerView);
         button = findViewById(R.id.button);
+        buttonFavorite = findViewById(R.id.buttonFavorite);
 
         this.list = new ArrayList<Movie>();
         adapter = new MyAdapter(this, list);
         savePreferences = new SavePreferences(MainActivity.this);
-        movieService = RetrofitClient.getClient().create(MovieService.class);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemLongClick(int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Would you like to add this quote to your favorites?");
+                builder.setTitle("Would you like to add this title to your favorites?");
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -106,10 +108,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonFavorite.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+            startActivity(intent);
+        });
+
     }
 
-
     public void retrieveData(String movieTitle) {
+        movieService = RetrofitClient.getClient().create(MovieService.class);
         Call<SearchResult> call = movieService.searchMovies(API_KEY, movieTitle);
         call.enqueue(new Callback<SearchResult>() {
             @Override

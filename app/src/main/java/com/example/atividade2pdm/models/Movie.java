@@ -1,17 +1,23 @@
 package com.example.atividade2pdm.models;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-
 public class Movie implements Serializable {
+    @SerializedName("Title")
     private String title;
+    @SerializedName("Year")
     private String year;
+    @SerializedName("Poster")
     private String poster;
+    @SerializedName("imdbID")
     private String imdbID;
+    @SerializedName("Released")
     private String released;
+    @SerializedName("Runtime")
     private String runtime;
+    @SerializedName("imdbRating")
     private String imdbRating;
+    @SerializedName("Plot")
     private String plot;
 
     public String getReleased() {
