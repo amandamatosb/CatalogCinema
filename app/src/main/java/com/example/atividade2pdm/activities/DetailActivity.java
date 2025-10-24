@@ -1,7 +1,10 @@
 package com.example.atividade2pdm.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView imagePoster;
     private ImageView imageRating;
     private Button button_back;
+    private ImageButton imageYoutube;
 
     private Retrofit retrofit;
     private final String API_KEY = "a1b4d424";
@@ -62,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         imagePoster = findViewById(R.id.imagePoster);
         imageRating = findViewById(R.id.imageRating);
         button_back = findViewById(R.id.button_back);
-
+        imageYoutube = findViewById(R.id.imageYoutube);
         String movieID = getIntent().getStringExtra("movie_id");
 
         retrieveDetailMovie(movieID);
@@ -70,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         button_back.setOnClickListener( v -> {
             finish();
         });
+
     }
 
     public static int converter(String num) {
@@ -117,15 +122,21 @@ public class DetailActivity extends AppCompatActivity {
                         imageRating.setImageResource(R.drawable.img_5);
                     }
 
+                    imageYoutube.setOnClickListener(v -> {
+                        String urlString = getString(R.string.searchURL) + Uri.encode(movieDetail.getTitle() + " trailer ", "UTF-8");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                        startActivity(intent);
+                    });
+
                 } else {
-                    Toast.makeText(DetailActivity.this, "Nenhum detalhe encontrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, "No details found", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(DetailActivity.this, "Erro de conexão" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailActivity.this, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

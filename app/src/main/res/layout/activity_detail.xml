@@ -83,18 +83,18 @@
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
         android:backgroundTint="#494949"
         android:fontFamily="@font/moving"
         android:text="Back"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPlot"
-        app:layout_constraintVertical_bias="0.361" />
+        app:layout_constraintTop_toBottomOf="@+id/imageYoutube" />
 
     <ImageView
         android:id="@+id/imageRating"
@@ -122,5 +122,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="29dp" />
+
+    <ImageButton
+        android:id="@+id/imageYoutube"
+        android:layout_width="38dp"
+        android:layout_height="52dp"
+        android:background="@color/cardview_shadow_end_color"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPlot"
+        app:layout_constraintVertical_bias="0.135"
+        app:srcCompat="@drawable/youtube" />
+
+    <TextView
+        android:id="@+id/textYoutube"
+        android:layout_width="143dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="160dp"
+        android:fontFamily="@font/regular"
+        android:text="Click to search for the trailer on YouTube"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/imageYoutube"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageYoutube"
+        app:layout_constraintTop_toTopOf="@+id/imageYoutube" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
