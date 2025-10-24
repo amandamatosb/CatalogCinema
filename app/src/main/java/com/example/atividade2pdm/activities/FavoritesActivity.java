@@ -2,6 +2,7 @@ package com.example.atividade2pdm.activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class FavoritesActivity extends AppCompatActivity {
     private MyAdapter adapter;
     private ArrayList<Movie> list;
     private SavePreferences savePreferences;
+    private Button button_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,16 @@ public class FavoritesActivity extends AppCompatActivity {
             return insets;
         });
 
-        adapter = new MyAdapter(this, list);
         recyclerView = findViewById(R.id.recyclerView);
         savePreferences = new SavePreferences(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        recyclerView.setAdapter(adapter);
         list = new ArrayList<>();
         list.addAll(savePreferences.getMovies());
+        adapter = new MyAdapter(this, list);
+        recyclerView.setAdapter(adapter);
+        button_back = findViewById(R.id.button_back);
 
         adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
@@ -58,7 +61,7 @@ public class FavoritesActivity extends AppCompatActivity {
             @Override
             public void onItemLongClick(int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FavoritesActivity.this);
-                builder.setTitle("Would you like to remove this quote to your favorites?");
+                builder.setTitle("Would you like to remove this title to your favorites?");
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -73,6 +76,10 @@ public class FavoritesActivity extends AppCompatActivity {
                 builder.create().show();
 
             }
+        });
+
+        button_back.setOnClickListener( v -> {
+            finish();
         });
 
     }
