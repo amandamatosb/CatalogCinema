@@ -1,24 +1,28 @@
-### Nota sobre a Autoria do Commit
-
-> Olá, professor!
-> Gostaria de esclarecer que todo o desenvolvimento deste projeto foi realizado por mim. Para a codificação, utilizei o computador do Feliph e, embora eu tenha feito o login e o push com a minha conta do GitHub, a configuração do Git na máquina dele registrou o nome dele como autor.
-
-## Atividade 2 PDM - Catalog Cinema (App de consulta de filmes e séries)
-&nbsp;&nbsp;&nbsp;Este projeto consiste em um aplicativo Android desenvolvido para a disciplina de Programação para Dispositivos Móveis. O app permite que o usuário pesquise filmes e séries, visualize uma lista de resultados e, ao selecionar um item, veja seus detalhes completos em uma nova tela.
+## Projeto Individual PDM - Catalog Cinema
+&nbsp;&nbsp;&nbsp;Este projeto consiste em um aplicativo Android desenvolvido para a disciplina de Programação para Dispositivos Móveis. O app permite que o usuário pesquise filmes e séries, visualize uma lista de resultados, adicione-os aos favoritos e, ao selecionar um item, veja seus detalhes completos, incluindo a opção de buscar o trailer no YouTube.
 
 ## Prints de Tela
 
-| Tela Inicial| Tela de Busca | Tela de Detalhes |
-| :---: | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/9d855161-216f-438d-adc7-a8048d90c76a" alt="Tela Inicial" width="300"> | <img src="https://github.com/user-attachments/assets/24b2e882-97e3-4b31-b016-1fb1073808f5" alt="Tela de Resultado" width="300"> | <img src="https://github.com/user-attachments/assets/dc9274d6-d8b8-4747-8134-b1313997f8ce" alt="Tela de Detalhes" width="300"> |
+| Tela Inicial | Busca de item | Adicionar item em Favoritos | 
+| :---: | :---: | :---: | 
+| <img src="https://github.com/user-attachments/assets/ef25f9e4-7006-4e8f-8eb2-96eeca2a1f97" alt="Tela Inicial" width="300"> | <img src="https://github.com/user-attachments/assets/a377ea00-3ebc-4e93-8d69-c41b2d38a4ed" alt="Busca de item" width="300"> | <img src="https://github.com/user-attachments/assets/06afce4c-c049-4962-89fc-2bf2a1edfa1c" alt="Adicionar item em Favoritos" width="300"> | 
+
+|  Tela de Favoritos| Tela de Detalhes | Pesquisa no Youtube |
+| :---: | :---: | :---: | 
+| <img src="https://github.com/user-attachments/assets/6b707eec-8d58-438e-b378-cf6ebd7062ce" alt="Tela de favoritos" width="300"> | <img src="https://github.com/user-attachments/assets/defb0f16-84cd-4b39-8316-f1ca8a894c24" alt="Tela de Detalhes" width="300"> | <img src="https://github.com/user-attachments/assets/e5253ce2-0b33-4c68-b2c8-8298c12b04dd" alt="Pesquisa no YouTube" width="300"> | 
+
 
 ## Funcionalidades
 
 **Busca em Tempo Real:** Campo de texto para pesquisar filmes e séries.
 
-**Lista de Resultados:** Exibe os resultados da busca em um RecyclerView, mostrando o pôster e o título de cada obra.
+**Lista de Resultados:** Exibe os resultados da busca em um RecyclerView, mostrando o pôster e o título.
 
-**Tela de Detalhes:** Apresenta informações detalhadas do filme selecionado, como sinopse, data de lançamento, duração e avaliação.
+**Gestão de Favoritos:** Permite ao usuário adicionar e remover filmes da sua lista de favoritos, acessível através de um ícone na tela de busca.
+
+**Visualização de Detalhes:** Ao selecionar um item (seja da lista de busca ou da tela de favoritos), o usuário é levado a uma tela com informações detalhadas, como sinopse, data de lançamento, duração e avaliação em estrelas.
+
+**Integração com YouTube:** Um botão na tela de detalhes dispara uma Intent para buscar o trailer do filme ou série diretamente no YouTube.
 
 **Interface Intuitiva:** Design limpo e navegação simples entre as telas.
 
