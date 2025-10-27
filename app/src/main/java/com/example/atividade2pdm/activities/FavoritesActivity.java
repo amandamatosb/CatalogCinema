@@ -1,6 +1,7 @@
 package com.example.atividade2pdm.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -55,7 +56,12 @@ public class FavoritesActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                Intent intent = new Intent(FavoritesActivity.this, DetailActivity.class);
+                String movieID = list.get(position).getImdbID();
 
+                intent.putExtra("movie_id", movieID);
+
+                startActivity(intent);
             }
 
             @Override

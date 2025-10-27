@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/moving"
         android:text="Favorites"
+        android:textColor="#050505"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
